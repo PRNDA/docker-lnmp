@@ -11,11 +11,12 @@ MYWORKSPACE="/Users/kelu/workspace/wechat.kelu.org"
 #    --entrypoint=/bin/bash \
 #    php:7.1-fpm
 
-docker run -it --rm \
-  -v $MYWORKSPACE:/app \
-  composer:1.4.2 install --ignore-platform-reqs --no-scripts
-
 #docker run -it --rm \
 #  -v $MYWORKSPACE:/app \
-#  --entrypoint=/bin/bash \
-#  composer:1.4.2
+#  composer:1.4.2 install --ignore-platform-reqs --no-scripts
+
+docker run -it --rm \
+  -p 5432:5432 \
+  -v $PWD/psql/data:/var/lib/postgresql/data \
+  -v $PWD/psql/dump:/var/lib/postgresql/dump \
+  postgres:9.4-alpine

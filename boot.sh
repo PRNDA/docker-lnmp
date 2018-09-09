@@ -26,3 +26,11 @@ docker run --name php -d \
 #docker run --rm \
 #  -v $MYWORKSAPCE:/app \
 #  composer:1.4.2 install --ignore-platform-reqs --no-scripts
+
+
+docker run --name pgsql -d \
+  --restart=always \
+  -p 5432:5432 \
+  -v $PWD/psql/data:/var/lib/postgresql/data \
+  -v $PWD/psql/dump:/var/lib/postgresql/dump \
+  postgres:9.4-alpine

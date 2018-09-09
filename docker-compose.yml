@@ -11,9 +11,6 @@ services:
       - "php:php"
     ports:
       - "8000:80"
-    deploy:
-      restart_policy:
-        condition: any
 
   php:
     build: ./php
@@ -33,6 +30,3 @@ services:
       - ./psql/dump:/var/lib/postgresql/dump
     ports:
       - "5432:5432"
-    deploy:
-      restart_policy:
-        condition: any

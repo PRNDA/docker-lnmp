@@ -5,9 +5,18 @@ RUN apt-get update
 RUN apt-get install -y libpq-dev \
         libfreetype6-dev \
         libmcrypt-dev \
-        libpng12-dev \
         libjpeg-dev \
         libpng-dev \
+        libssl-dev \
+        libcurl4-openssl-dev \
+        libbz2-dev \
+        libjpeg-dev \
+        libpng-dev \
+        libgmp-dev \
+        libicu-dev \
+        libmcrypt-dev \
+        freetds-dev \
+        libxslt-dev \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && docker-php-ext-configure gd \
         --enable-gd-native-ttf \

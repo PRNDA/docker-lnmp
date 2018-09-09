@@ -1,0 +1,38 @@
+version:  '3.0'
+services:
+  nginx:
+    image: openresty/openresty:alpine
+    volumes:
+      - $MYWORKSPACE:/var/www/html
+      - ./openresty:/etc/nginx/conf.d
+      - ./sock:/sock
+      - ./log:/log
+    links:
+      - "php:php"
+    ports:
+      - "8000:80"
+    deploy:
+      restart_policy:
+        condition: any
+
+  php:
+    build: ./php
+    volumes:
+      - $MYWORKSPACE:/var/www/html
+      - ./php/php-fpm.d:/usr/local/etc/php-fpm.d
+      - ./php/conf/php-fpm.conf:/usr/local/etc/php-fpm.conf
+      - ./sock:/sock
+      - ./log:/log
+    links:
+      - "pgsql:pgsql"
+
+  pgsql:
+    image: postgres:9.4-alpine
+    volumes:
+      - ./psql/data:/var/lib/postgresql/data
+      - ./psql/dump:/var/lib/postgresql/dump
+    ports:
+      - "5432:5432"
+    deploy:
+      restart_policy:
+        condition: any

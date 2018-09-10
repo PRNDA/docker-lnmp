@@ -1,5 +1,6 @@
 log/*
 sock/*
+tmp/*
 psql/data
 psql/dump
 ~

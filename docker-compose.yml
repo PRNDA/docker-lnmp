@@ -12,6 +12,14 @@ services:
     ports:
       - "8000:80"
 
+  redis:
+    image: redis
+    command: redis-server --appendonly yes
+    volumes:
+      - ./tmp/redis:/data
+    ports:
+      - "6379:6379"
+
   php:
     build: ./php
     volumes:
@@ -22,6 +30,7 @@ services:
       - ./log:/log
     links:
       - "pgsql:pgsql"
+      - "redis:redis"
 
   pgsql:
     image: postgres:9.4-alpine
@@ -30,3 +39,4 @@ services:
       - ./psql/dump:/var/lib/postgresql/dump
     ports:
       - "5432:5432"
+

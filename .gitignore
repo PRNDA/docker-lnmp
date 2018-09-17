@@ -4,3 +4,6 @@ tmp/*
 psql/data
 psql/dump
 ~
+.env
+*~
+*.swp

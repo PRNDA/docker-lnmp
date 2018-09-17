@@ -1,16 +1,18 @@
-version:  '3.0'
+version:  '3.2'
 services:
   nginx:
     image: openresty/openresty:alpine
     volumes:
       - $MYWORKSPACE:/var/www/html
       - ./openresty:/etc/nginx/conf.d
-      - ./sock:/sock
       - ./log:/log
+      - type: bind
+        source: lnmpsock
+        target: /sock
     links:
       - "php:php"
     ports:
-      - "8000:80"
+      - "80:80"
 
   redis:
     image: redis
@@ -26,8 +28,10 @@ services:
       - $MYWORKSPACE:/var/www/html
       - ./php/php-fpm.d:/usr/local/etc/php-fpm.d
       - ./php/conf/php-fpm.conf:/usr/local/etc/php-fpm.conf
-      - ./sock:/sock
       - ./log:/log
+      - type: bind
+        source: lnmpsock
+        target: /sock
     links:
       - "pgsql:pgsql"
       - "redis:redis"
@@ -35,8 +39,12 @@ services:
   pgsql:
     image: postgres:9.4-alpine
     volumes:
-      - ./psql/data:/var/lib/postgresql/data
+#      - ./psql/data:/var/lib/postgresql/data
       - ./psql/dump:/var/lib/postgresql/dump
     ports:
       - "5432:5432"
 
+volumes:
+  lnmpsock:
+    external:
+      name: lnmpsock

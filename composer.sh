@@ -14,3 +14,6 @@ docker run -it --rm \
 #docker run -it --rm \
 #  -v $MYWORKSPACE:/app \
 #  composer:1.4.2 $1 --ignore-platform-reqs --no-scripts
+
+# for windows
+# docker run -it --rm -v d:/GitHub/wechat.kelu.org:/app --entrypoint=/bin/bash composer:1.4.2
